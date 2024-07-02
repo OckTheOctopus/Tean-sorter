@@ -10,12 +10,19 @@ export async function load() {
 export const actions = {
     signup: async ({ request }) => {
         const submission = await request.formData();
-        console.log(submission)
         const email = submission.get('email');
         const password = submission.get('password');
+        const fname = submission.get('fname');
+        const lname = submission.get('lname');
         let { data, error } = await supabase.auth.signUp({
             email: email,
-            password: password
+            password: password,
+            options: {
+                data: {
+                    first_name: fname,
+                    last_name: lname
+                }
+            }
         });
         if (!error) {
             return { success: true }

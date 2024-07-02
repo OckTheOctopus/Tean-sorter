@@ -2,7 +2,7 @@ import { supabase } from "$lib/supabaseClient";
 import { userSession } from "../../lib/sessionStore.svelte.js";
 import { fail, redirect } from "@sveltejs/kit";
 
-export async function load({ locals, cookies, url }) {
+export async function load({ locals, cookies }) {
     // Check if user is already set in locals
     if (locals.user) {
         return {
@@ -40,7 +40,6 @@ export async function load({ locals, cookies, url }) {
 export const actions = {
     login: async ({ request, cookies }) => {
         const submission = await request.formData();
-        console.log(submission)
         const email = submission.get('email');
         const password = submission.get('password');
         let { data, error } = await supabase.auth.signInWithPassword({
