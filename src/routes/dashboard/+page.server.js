@@ -1,6 +1,7 @@
 import { supabase } from '$lib/supabaseClient.js';
 import { fail, redirect } from '@sveltejs/kit';
-import { userSession } from '../../lib/sessionStore.svelte.js';
+import { userSession } from '$lib/sessionStore.svelte.js';
+
 
 export const actions = {
     signOut: async ({ cookies, url }) => {

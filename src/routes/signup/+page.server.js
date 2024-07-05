@@ -2,10 +2,6 @@ import { supabase } from "$lib/supabaseClient";
 import { fail, redirect } from "@sveltejs/kit";
 
 export async function load() {
-    const { data } = await supabase.from("countries").select();
-    return {
-      countries: data ?? [],
-    };
 }
 export const actions = {
     signup: async ({ request }) => {
@@ -20,12 +16,14 @@ export const actions = {
             options: {
                 data: {
                     first_name: fname,
-                    last_name: lname
+                    last_name: lname,
+                    teams: [],
+                    players: []
                 }
             }
         });
         if (!error) {
-            return { success: true }
+            throw redirect(303, '/login')
         } else {
             return fail(400, { email, genericError: true, errorMsg: error.message});
         }

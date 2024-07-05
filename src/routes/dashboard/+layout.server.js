@@ -27,10 +27,12 @@ export async function load({ locals, cookies }) {
         if (data?.user) {
             // Valid session, set user in locals for future requests
             locals.user = data.user;
-            return { displayName: data.user.user_metadata.display_name };
+            const userName = data.user.user_metadata.first_name;
+            return { displayName: userName, players: data.user.user_metadata.players };
         }
     }
 
     // No valid session
     throw redirect(303, '/login');
 }
+
