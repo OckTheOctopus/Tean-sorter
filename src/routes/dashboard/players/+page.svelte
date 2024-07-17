@@ -1,6 +1,6 @@
 <script>
     import { enhance } from '$app/forms'
-    let { form, data } = $props();
+    let { data } = $props();
     let open = $state(false);
     let targetPlayer = $state();
 </script>

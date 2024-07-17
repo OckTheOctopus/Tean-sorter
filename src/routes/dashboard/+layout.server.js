@@ -28,7 +28,8 @@ export async function load({ locals, cookies }) {
             // Valid session, set user in locals for future requests
             locals.user = data.user;
             const userName = data.user.user_metadata.first_name;
-            return { displayName: userName, players: data.user.user_metadata.players };
+            const { players, teams } = data.user.user_metadata;
+            return { displayName: userName, players: players, teams: teams };
         }
     }
 

@@ -1,5 +1,5 @@
 import { supabase } from '$lib/supabaseClient.js';
-import addPlayer from '$lib/helpers.js';
+import {addPlayer} from '$lib/helpers.js';
 import { randomUUID } from 'crypto';
 
 export const actions = {
