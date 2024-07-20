@@ -1,4 +1,5 @@
 <script>
+    import { enhance } from '$app/forms';
     let { form, data } = $props();
     let playerData = $state(data?.players);
     let open = $state(false);
@@ -22,6 +23,8 @@
         teamListJSON = JSON.stringify(teamList) ?? [];
         selected = playerData[0] ?? '';
     }
+
+    let targetTeam = $state();
 </script>
 
 <button onclick={() => open = true}>Create team</button>
@@ -49,7 +52,7 @@
         </div>
     {/each}
 
-    <form method="post" action="?/newTeam">
+    <form method="post" action="?/newTeam" use:enhance>
         <input type="text" bind:value={teamListJSON} name="teamlist" hidden>
         <input type="text" bind:value={teamName} name="teamname" hidden>
         <input type="submit" value="Create Team">
@@ -57,7 +60,14 @@
     
 </dialog>
 
-
+<form method="post" action="?/deleteTeam" id='delete-team' use:enhance>
+    <input type="text" name="target" value={targetTeam} hidden>
+</form>
 
 <p>Teams:</p>
-<p>{form?.teams}</p>
+{#each data?.teams as team (team.id)}
+    <h2>{team.name} <input name="deleteTeam" form="delete-team" type="submit" value="Delete team" onclick={() => {targetTeam = team.id; confirm(`Are you sure you want to delete ${team.name}?`)}} ></h2>
+    {#each team.players as player}
+        <p>{player.name}</p>
+    {/each}
+{/each}
