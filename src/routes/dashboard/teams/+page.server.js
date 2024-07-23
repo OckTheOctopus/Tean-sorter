@@ -13,7 +13,7 @@ export const actions = {
         let teamPlayers = [];
 
         let teamListIds = teamList.map(player => player.id);
-        console.log(teamListIds);
+        console.log(teamName);
         for (let i = 0; i < players.length; i++) {
             // Check if the player's ID is in the teamListIds array
             if (teamListIds.includes(players[i].id)) {
@@ -33,25 +33,20 @@ export const actions = {
         });
         if (error) console.log(error);
         
-        // console.log(teams);
-        console.log(players);
-        
         return {teams: teams, players: players}
     },
     deleteTeam: async({ request, cookies }) => {
         const submission = await request.formData();
         const teamId = submission.get("target");
         const { data: {user} } = await supabase.auth.getUser(cookies.get('session'));
-        let { teams } = user.user_metadata;
+        let { players, teams } = user.user_metadata;
 
-        teams.forEach(team => {
-            if (team.id === teamId) {
-                teams = teams.filter(t => t.id !== teamId);
-            }
+        teams = teams.filter(t => t.id !== teamId);
+        players.forEach(player => {
+            player.teams = player.teams.filter(team => team.id != teamId);
         });
-
         const { data, error } = await supabase.auth.updateUser({
-            data: { teams: teams }
+            data: { players: players, teams: teams }
         });
         if (error) console.log(error);
 

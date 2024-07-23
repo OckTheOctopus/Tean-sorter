@@ -39,13 +39,13 @@ export function sortTeams(teamsList, numTeams, sortType = "thorough") {
             for (let i = 0; i < numTeams; i++) {
                 meanSkills.push({teamSkill: teams[i].reduce((acc, curr) => acc + curr, 0) / teams[i].length, teamNum: i});
             }
-        meanSkills.sort((a, b) => a.skillLevel - b.skillLevel);
+        meanSkills.sort((a, b) => a.skills - b.skills);
         return meanSkills;
     }
     let teams = [];
     if (sortType === 'quick') {
         let unevens = [];
-        teamsList.sort((a, b) => b.skillLevel - a.skillLevel);
+        teamsList.sort((a, b) => b.skills - a.skills);
         if (teamsList.length % numTeams != 0) {
             unevens = teamsList.slice(-1 * (teamsList.length % numTeams));
             teamsList = teamsList.slice(0, -1 * (teamsList.length % numTeams));
@@ -56,22 +56,21 @@ export function sortTeams(teamsList, numTeams, sortType = "thorough") {
         }
         for (let i = 0; i < teamsList.length; i++) {
             let player = teamsList[i];
-            let groups = [];
-            let closestPlayer = null;
-            let closestDiff = Infinity;
-            groups.push(player);
+            let groups = [player]; // Start with the current player
             teamsList = teamsList.filter(p => p != player);
             for (let j = 0; j < numTeams - 1; j++) {
+                let closestPlayer = null;
+                let closestDiff = Infinity;
                 for (let k = 0; k < teamsList.length; k++) {
-                    if (i != k) {
-                        let diff = Math.abs(player.skillLevel - teamsList[k].skillLevel);
-                        if (diff < closestDiff) {
-                            closestDiff = diff;
-                            closestPlayer = teamsList[k];
-                            groups.push(closestPlayer);
-                            teamsList = teamsList.filter(player => player != teamsList[k]);
-                        }
+                    let diff = Math.abs(player.skills - teamsList[k].skills);
+                    if (diff < closestDiff) {
+                        closestDiff = diff;
+                        closestPlayer = teamsList[k];
                     }
+                }
+                if (closestPlayer) {
+                    groups.push(closestPlayer);
+                    teamsList = teamsList.filter(p => p != closestPlayer);
                 }
             }
             let teamMean = calcMeanSkills(teams);

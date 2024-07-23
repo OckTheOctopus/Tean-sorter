@@ -19,9 +19,10 @@ export async function load({ locals, cookies }) {
         if (error) {
             // If there's an error (e.g., expired token), clear the cookie
             cookies.delete('session', { path: '/' });
-            return {
-                user: null
-            };
+            throw redirect(301, '/login');
+            // return {
+            //     user: null
+            // };
         }
 
         if (data?.user) {

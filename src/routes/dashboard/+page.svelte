@@ -7,6 +7,7 @@
     let name = $state();
     let skillLevel = $state(1);
     let isGoalie = $state();
+    let numTeams = $state();
 
     let teams = $state([]);
 
@@ -19,7 +20,7 @@
     }
 
     const teamSorter = () => {
-        teams = sortTeams(playersList, 2, 'quick');
+        teams = sortTeams(playersList, numTeams, 'quick');
         console.log(teams);
     }
 </script>
@@ -54,6 +55,7 @@
         <button onclick={() => {playersList[currentIndex] = {name: playersList[currentIndex].name, skillLevel: playersList[currentIndex].skillLevel, isGoalie: playersList[currentIndex].isGoalie}; alert("Player updated successfully")}}>Update player</button>
         <button onclick={() => currentIndex = playersList.length}>Create new player</button>
     {/if}
+    <label for="numTeams">Number of teams: {numTeams}</label><input type="range" name="numTeams" bind:value={numTeams} min="2" max="4">
 
     {#if currentIndex != playersList.length - 1}
         <button onclick={() => currentIndex++}>Next</button>
