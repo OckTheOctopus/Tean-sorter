@@ -49,6 +49,8 @@
     let saveTeamName = $state('');
     let saveTeamHiddens = $state([true, true, true]);
 
+    let targetPlayer = $state();
+
 </script>
 
 <button onclick={() => open = true}>Create team</button>
@@ -109,7 +111,10 @@
         <input name="deleteTeam" form="delete-team" type="submit" value="Delete team" onclick={() => targetTeam = team.id} >
     </h2>
     {#each team.players as player}
-        <p>{player.name}</p>
+        <p>
+            {player.name}
+            <input name="deletePlayer" form="delete-player" type="submit" value="Delete player" onclick={() => targetPlayer = player.id} >
+        </p>
         {/each}
     {/each}
 <dialog open={secondModalOpen}>
@@ -128,8 +133,15 @@
             </form>
         </h2>
         {#each team as player}
-            <p>{player?.name}</p>
+            <p>
+                {player?.name}
+                <input name="deletePlayer" form="delete-player" type="submit" value="Delete player" onclick={() => targetPlayer = player.id} >
+            </p>
         {/each}
     {/each}
     <button onclick={() => secondModalOpen = false}>Close</button>
 </dialog>
+
+<form method="post" action="/dashboard/players?/deletePlayer" id='delete-player' use:enhance>
+    <input type="text" name="target" value={targetPlayer} hidden>
+</form>

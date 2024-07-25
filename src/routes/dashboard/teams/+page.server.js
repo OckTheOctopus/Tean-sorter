@@ -13,7 +13,6 @@ export const actions = {
         let teamPlayers = [];
 
         let teamListIds = teamList.map(player => player.id);
-        console.log(teamName);
         for (let i = 0; i < players.length; i++) {
             // Check if the player's ID is in the teamListIds array
             if (teamListIds.includes(players[i].id)) {
