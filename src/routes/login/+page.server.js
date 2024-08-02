@@ -1,6 +1,6 @@
-import { supabase } from "$lib/supabaseClient";
-import { userSession } from "../../lib/sessionStore.svelte.js";
-import { fail, redirect } from "@sveltejs/kit";
+import { supabase } from "$lib/supabaseClient"; // Import Supabase client for authentication
+import { userSession } from "../../lib/sessionStore.svelte.js"; // Import user session store
+import { fail, redirect } from "@sveltejs/kit"; // Import fail and redirect functions from SvelteKit
 
 export async function load({ locals, cookies }) {
     // Check if user is already set in locals
@@ -28,7 +28,7 @@ export async function load({ locals, cookies }) {
         if (data?.user) {
             // Valid session, set user in locals for future requests
             locals.user = data.user;
-            throw redirect(303, '/dashboard');
+            throw redirect(303, '/dashboard'); // Redirect to dashboard if session is valid
         }
     }
 
@@ -47,12 +47,12 @@ export const actions = {
             password: password
         });
         if (error?.message === "Invalid login credentials") {
-            return fail(400, { email, incorrect: true });
+            return fail(400, { email, incorrect: true }); // Return failure with incorrect credentials
         } else if (error?.message === "Email not confirmed") {
-            return fail(400, { email, unconfirmed: true});
+            return fail(400, { email, unconfirmed: true}); // Return failure with unconfirmed email
         } else if (error?.message) {
             console.log(error);
-            return fail(400, { email, genericError: true, returnedError: error });
+            return fail(400, { email, genericError: true, returnedError: error }); // Return failure with generic error
         }
 
         if (data.session) {
@@ -63,11 +63,11 @@ export const actions = {
                 maxAge: 60 * 60 * 24 * 7 * 4, // 4 weeks
             });
 
-            userSession.setSession(data.user);
+            userSession.setSession(data.user); // Set user session
 
-            throw redirect(302, '/dashboard');
+            throw redirect(302, '/dashboard'); // Redirect to dashboard after successful login
         } else {
-            return fail(400, { email, genericError: true, returnedError: 'No session data returned' });
+            return fail(400, { email, genericError: true, returnedError: 'No session data returned' }); // Return failure if no session data
         }
     }
 }
