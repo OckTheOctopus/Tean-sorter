@@ -22,7 +22,7 @@
             <form method="post" action="?/newPlayer" use:enhance>
                 <label for="name">Player name:</label><input type="text" name="name">
                 <br>
-                <label for="name">Skill level:</label><input type="range" min="1" max="10" name="skills" bind:value={sliderValue}><input readonly value={sliderValue}>
+                <label for="name">Skill level: {sliderValue}</label><input type="range" min="1" max="10" name="skills" bind:value={sliderValue}>
                 <br>
                 <label for="name">Goalie?</label><input type="checkbox" name='isGoalie'>
                 <br>
@@ -39,7 +39,7 @@
             <form method="post" action="?/editPlayer" use:enhance>
                 <label for="name">Player name:</label><input type="text" name="name" bind:value={playerEditInfo.name}>
                 <br>
-                <label for="name">Skill level:</label><input type="range" min="1" max="10" name="skills" bind:value={playerEditInfo.skills}><input readonly value={playerEditInfo.skills}
+                <label for="name">Skill level: {playerEditInfo.skills}</label><input type="range" min="1" max="10" name="skills" bind:value={playerEditInfo.skills}>
                 <br>
                 <label for="name">Goalie?</label><input type="checkbox" name='isGoalie' bind:checked={playerEditInfo.goalie}>
                 <br>

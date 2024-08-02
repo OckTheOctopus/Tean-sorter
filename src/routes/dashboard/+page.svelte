@@ -55,7 +55,7 @@
             {#if !playersList.length || currentIndex >= playersList.length}
                 <label for="name">Name:</label><input type="text" name="name" bind:value={name}>
                 <br>
-                <label for="skill">Skill level:</label><input type="range" name="skill" bind:value={skillLevel} min="1" max="10">
+                <label for="skill">Skill level: {skillLevel}</label><input type="range" name="skill" bind:value={skillLevel} min="1" max="10">
                 <br>
                 <label for="isgoalie">Goalie? </label><input type="checkbox" name="isgoalie" bind:checked={isGoalie}>
                 <br>
@@ -63,7 +63,7 @@
             {:else}
                 <label for="name">Name:</label><input type="text" name="name" bind:value={playersList[currentIndex].name}>
                 <br>
-                <label for="skill">Skill level:</label><input type="range" name="skill" bind:value={playersList[currentIndex].skillLevel} min="1" max="10">
+                <label for="skill">Skill level: {playersList[currentIndex].skillLevel}</label><input type="range" name="skill" bind:value={playersList[currentIndex].skillLevel} min="1" max="10">
                 <br>
                 <label for="isgoalie">Goalie? </label><input type="checkbox" name="isgoalie" bind:checked={playersList[currentIndex].isGoalie}>
                 <br>
@@ -129,6 +129,10 @@
                     font-weight: bold;
                     transition: all 350ms ease-in 50ms;
                     border-radius: 25px;
+                    img {
+                        height: 80%;
+                        width: 80%;
+                    }
                 }
                 form {
                     button {
@@ -139,6 +143,10 @@
                         color: white;
                         background-color: $primary;
                         height: 100%;
+                        img {
+                            width: 80%;
+                            height: 80%;
+                        }
                     }
                 }
                 .dashboard-button:hover, #signout-button:hover {

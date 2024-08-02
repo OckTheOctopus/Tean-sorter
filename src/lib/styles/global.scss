@@ -40,18 +40,38 @@ html {
             background-color: $primary;
             border-width: 0px;
             border-radius: 10px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
             div {
                 display: flex;
                 flex-direction: column;
-                input[type='text'], input[type='number'] {
+                input[type='text'], input[type='number'], input[type='submit'] {
                     margin-left: 1vw;
                     height: 3vw;
                     width: 75%;
+                }
+                input[type='submit'] {
+                    width: 7em;
+                    height: 3em;
+                    margin-left: 2vw;
+                    font-weight: bold;
+                    font-size: 1em;
+                    border-radius: 25px;
+                    margin-top: 1vh;
+                    margin-bottom: 1vh;
+                    transition: all 350ms ease-in 50ms;
+                }
+                input[type='submit']:hover {
+                    background-color: $tertiary;
                 }
             }
             p, h1, h2, h3, h4, h5, h6, a, label {
                 color: white;
             }
         }
+        
     }
 }

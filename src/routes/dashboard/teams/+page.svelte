@@ -73,7 +73,7 @@
             {:else}
                 <label for="name">Team name: </label><input type="text" name="name" required bind:value={teamName}>
                 <br>
-                <span>Players</span>
+                <p>Players</p>
                 <select bind:value={selected}>
                     {#each playerData as player}
                         <option value={player}>
