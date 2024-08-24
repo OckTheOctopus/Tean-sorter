@@ -43,7 +43,6 @@ export async function addPlayer(userMetadata, playerId, playerName, playerSkills
 // Function to sort teams based on player skills
 export function sortTeams(teamsList, numTeams, sortType = "thorough") {
     // Function to calculate the mean skills of each team
-    // Function to calculate the mean skills of each team
     function calcMeanSkills(teams) {
         let meanSkills = [];
         for (let i = 0; i < numTeams; i++) {
