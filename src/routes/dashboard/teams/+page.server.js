@@ -8,8 +8,14 @@ export const actions = {
         // Extract form data from the request
         const submission = await request.formData();
         // Extract team list and team name from the form data
-        const teamList = JSON.parse(submission.get('teamlist'));
+        let teamList = submission.get('teamlist');
+        if (teamList) {
+            teamList = JSON.parse(teamList);
+        } else {
+            return { error: "Invalid team data"}
+        }
         const teamName = submission.get('teamname');
+        
         // Generate a unique ID for the new team
         const teamId = randomUUID();
 

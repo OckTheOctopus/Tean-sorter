@@ -54,10 +54,10 @@
 </script>
 
 <div class="page">
-    <h1>Your Players</h1>
+    <h1>Your Teams</h1>
     <div class="navlinks">
         <a href="/dashboard">Dashboard</a>
-        <a href="/dashboard/teams">Teams</a>
+        <a href="/dashboard/players">Players</a>
     </div>
     
     <button onclick={() => open = true}>Create team</button>
@@ -94,7 +94,7 @@
                 
                 <form method="post" action="?/newTeam" use:enhance>
                     <input type="text" bind:value={teamListJSON} name="teamlist" hidden>
-                    <input type="text" bind:value={teamName} name="teamname" hidden>
+                    <input type="text" bind:value={teamName} name="teamname" hidden required>
                     <input type="submit" value="Create Team" onclick={() => open = false}>
                 </form>
                 {/if}

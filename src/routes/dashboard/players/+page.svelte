@@ -20,7 +20,7 @@
         <div>
             <h1>Add new player</h1>
             <form method="post" action="?/newPlayer" use:enhance>
-                <label for="name">Player name:</label><input type="text" name="name">
+                <label for="name">Player name:</label><input type="text" name="name" required>
                 <br>
                 <label for="name">Skill level: {sliderValue}</label><input type="range" min="1" max="10" name="skills" bind:value={sliderValue}>
                 <br>
@@ -37,7 +37,7 @@
     <dialog open={secondModalOpen}>
         <div>
             <form method="post" action="?/editPlayer" use:enhance>
-                <label for="name">Player name:</label><input type="text" name="name" bind:value={playerEditInfo.name}>
+                <label for="name">Player name:</label><input type="text" name="name" bind:value={playerEditInfo.name} required>
                 <br>
                 <label for="name">Skill level: {playerEditInfo.skills}</label><input type="range" min="1" max="10" name="skills" bind:value={playerEditInfo.skills}>
                 <br>
